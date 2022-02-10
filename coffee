@@ -2,15 +2,15 @@
 
 function exec_dc() {
     cmd=$1
-    for dir in ./*/     
+    while IFS= read -r line
     do
-        dir=${dir%*/}   
+        dir=${line%*/}
         module_name=${dir##*/}
         cd ./$module_name
         echo "===================== $module_name ====================="
         docker-compose $cmd
         cd ..
-    done
+    done < "services.txt"
 }
 
 function help(){
@@ -18,12 +18,12 @@ function help(){
 }
 
 function services(){
-    for dir in ./*/     
+    while IFS= read -r line
     do
-        dir=${dir%*/}   
+        dir=${line%*/}
         module_name=${dir##*/}
         echo $module_name
-    done
+    done < "services.txt"
 }
 
 case $1 in
