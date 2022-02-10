@@ -1,0 +1,22 @@
+version: "3.4"
+services:
+  iotdb:
+    ports:
+      - 6667:6667
+    image: apache/iotdb
+    volumes:
+      - iotdb:/iotdb/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+    networks:
+      spnet:
+
+volumes:
+  iotdb:
+
+networks:
+  spnet:
+    driver: bridge
